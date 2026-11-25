@@ -1,10 +1,6 @@
-name: ci.yml
+name: ci-release.yml
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-      - main
-      - dev
   push:
     branches:
       - main
@@ -32,12 +28,12 @@ jobs:
         with:
           name: application-jar
           path: target/*.jar
-      - name: publish jacoco tests
-        if: always() && matrix.java == '25'
-        uses: actions/upload-artifact@v5
-        with:
-          name: jacoco-reports
-          path: target/site/jacoco
+#      - name: publish jacoco tests
+#        if: always() && matrix.java == '25'
+#        uses: actions/upload-artifact@v5
+#        with:
+#          name: jacoco-reports
+#          path: target/site/jacoco
   build-and-push-image:
     needs: build-and-test
     if: github.event_name == 'push' && needs.build-and-test.result == 'success'

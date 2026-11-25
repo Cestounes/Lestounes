@@ -1,0 +1,42 @@
+name: pull-request-ci-release.yml
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ '21', '25' ]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+      - name: Build and run tests
+        run: chmod +x ./mvnw && ./mvnw -B clean verify -Djava.version=${{ matrix.java }}
+      - name: publish .jar as artifact
+        if: matrix.java == '25'
+        uses: actions/upload-artifact@v5
+        with:
+          name: application-jar
+          path: target/*.jar
+      - name: publish jacoco tests
+        if: always() && matrix.java == '25'
+        uses: actions/upload-artifact@v5
+        with:
+          name: jacoco-reports
+          path: target/site/jacoco
+      - name: publish surefire report
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: surefire-reports
+          path: backend/target/surefire-reports/*.txt
+
