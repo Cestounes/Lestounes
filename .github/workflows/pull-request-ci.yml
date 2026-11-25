@@ -1,4 +1,4 @@
-name: pull-request-ci-release.yml
+name: pull-request-ci.yml
 on:
   workflow_dispatch:
   pull_request:
