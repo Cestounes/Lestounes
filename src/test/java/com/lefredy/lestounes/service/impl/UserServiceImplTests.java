@@ -47,6 +47,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceImplTests {
     @Mock
     private MongoUserRepository personRepository;
