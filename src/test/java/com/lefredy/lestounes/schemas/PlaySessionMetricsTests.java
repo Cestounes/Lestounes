@@ -2,6 +2,8 @@ package com.lefredy.lestounes.schemas;
 
 import com.lefredy.lestounes.constants.MediaStartAction;
 import com.lefredy.lestounes.constants.MediaStopAction;
+import com.lefredy.lestounes.dtos.playsession.PlaySessionMetricDto;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -48,5 +50,29 @@ class PlaySessionMetricsTests {
         assertNull(metrics.getId());
         assertNull(metrics.getTrackId());
         assertNull(metrics.getTimeStamp());
+    }
+
+    @Test
+    void dtoConstructor_copiesFieldsAndConvertsTimeStamp() {
+        PlaySessionMetricDto dto = new PlaySessionMetricDto();
+        dto.setTrackId(UUID.randomUUID());
+        dto.setUserId(UUID.randomUUID());
+        dto.setStartMs(1000L);
+        dto.setEndMs(5000L);
+        dto.setStartAction(MediaStartAction.FOLLOW);
+        dto.setStopAction(MediaStopAction.STOP);
+        dto.setTimeStamp(1764100000000L);
+
+        PlaySessionMetrics metrics = new PlaySessionMetrics(dto, "Titre");
+
+        assertNotNull(metrics.getId());
+        assertEquals(dto.getTrackId(), metrics.getTrackId());
+        assertEquals("Titre", metrics.getTrackTitle());
+        assertEquals(dto.getUserId(), metrics.getUserId());
+        assertEquals(1000L, metrics.getStartMs());
+        assertEquals(5000L, metrics.getEndMs());
+        assertEquals(MediaStartAction.FOLLOW, metrics.getStartAction());
+        assertEquals(MediaStopAction.STOP, metrics.getStopAction());
+        assertEquals(new Date(1764100000000L), metrics.getTimeStamp());
     }
 }

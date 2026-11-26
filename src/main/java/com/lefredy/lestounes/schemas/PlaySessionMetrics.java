@@ -2,6 +2,7 @@ package com.lefredy.lestounes.schemas;
 
 import com.lefredy.lestounes.constants.MediaStartAction;
 import com.lefredy.lestounes.constants.MediaStopAction;
+import com.lefredy.lestounes.dtos.playsession.PlaySessionMetricDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -25,7 +26,8 @@ public class PlaySessionMetrics {
 
     }
 
-    public PlaySessionMetrics(UUID trackId, String trackTitle, UUID userId, Long startMs, Long endMs, MediaStartAction startAction, MediaStopAction stopAction, Date timeStamp) {
+    public PlaySessionMetrics(UUID trackId, String trackTitle, UUID userId, Long startMs, Long endMs,
+            MediaStartAction startAction, MediaStopAction stopAction, Date timeStamp) {
         this.id = UUID.randomUUID();
         this.trackId = trackId;
         this.trackTitle = trackTitle;
@@ -35,6 +37,11 @@ public class PlaySessionMetrics {
         this.startAction = startAction;
         this.stopAction = stopAction;
         this.timeStamp = timeStamp;
+    }
+
+    public PlaySessionMetrics(PlaySessionMetricDto dto, String trackTitle) {
+        this(dto.getTrackId(), trackTitle, dto.getUserId(), dto.getStartMs(), dto.getEndMs(),
+                dto.getStartAction(), dto.getStopAction(), new Date(dto.getTimeStamp()));
     }
 
     public UUID getId() {
