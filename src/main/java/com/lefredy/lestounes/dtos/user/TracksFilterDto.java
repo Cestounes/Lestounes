@@ -8,23 +8,23 @@ import jakarta.validation.constraints.Size;
 import java.util.Date;
 
 public class TracksFilterDto {
-    @Size(min=5,max=100)
+    @Size(min=3,max=100)
     @NotNull
     @NotBlank
     String genre;
-    @Size(min=5,max=150)
+    @Size(min=3,max=150)
     @NotNull
     @NotBlank
     String title;
-    @Size(min=5, max=100)
+    @Size(min=3, max=100)
     @NotNull
     @NotBlank
     String album;
-    @Size(min=5, max=200)
+    @Size(min=3, max=200)
     @NotNull
     @NotBlank
     String artist;
-    @Size(min=5, max=200)
+    @Size(min=3, max=200)
     @NotNull
     @NotBlank
     String albumArtist;

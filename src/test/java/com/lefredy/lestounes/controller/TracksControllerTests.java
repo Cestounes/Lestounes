@@ -45,20 +45,20 @@ public class TracksControllerTests {
     @Test
     void getTracksFilter_returns200AndTheTracks() throws Exception {
         Tracks track = new Tracks();
-        track.setTitle("One More Time");
+        track.setTitle("Roach");
         when(tracksService.getTracksFiltered(any())).thenReturn(List.of(track));
 
-        mockMvc.perform(get("/api/v1/track/")
-                        .param("genre", "house")
-                        .param("title", "One More Time")
-                        .param("album", "Discovery")
-                        .param("artist", "Daft Punk")
-                        .param("albumArtist", "Daft Punk")
+        mockMvc.perform(get("/api/v1/track")
+                        .param("genre", "jazz")
+                        .param("title", "Roach")
+                        .param("album", "Single")
+                        .param("artist", "Glad")
+                        .param("albumArtist", "Glad")
                         .param("page", "0")
                         .param("pageNbLimit", "10"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
-                .andExpect(jsonPath("$[0].title").value("One More Time"));
+                .andExpect(jsonPath("$[0].title").value("Roach"));
 
         verify(tracksService).getTracksFiltered(any());
     }
