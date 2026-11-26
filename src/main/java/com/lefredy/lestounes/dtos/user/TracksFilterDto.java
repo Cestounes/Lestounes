@@ -23,7 +23,7 @@ public class TracksFilterDto {
     @Size(min=3, max=200)
     @NotNull
     @NotBlank
-    String artist;
+    String artists;
     @Size(min=3, max=200)
     @NotNull
     @NotBlank
@@ -58,7 +58,7 @@ public class TracksFilterDto {
     }
 
     public void setArtist(String artist) {
-        this.artist = artist;
+        this.artists = artists;
     }
 
     public void setAlbumArtist(String albumArtist) {
@@ -78,7 +78,7 @@ public class TracksFilterDto {
     }
 
     public String getArtist() {
-        return artist;
+        return artists;
     }
 
     public String getAlbumArtist() {
