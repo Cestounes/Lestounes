@@ -2,20 +2,26 @@ package com.lefredy.lestounes.controller;
 
 import com.lefredy.lestounes.config.WebConfiguration;
 import com.lefredy.lestounes.exceptions.DocumentNotFoundException;
+import com.lefredy.lestounes.repository.TracksRepository;
 import com.lefredy.lestounes.schemas.Tracks;
 import com.lefredy.lestounes.service.TracksService;
 import com.lefredy.lestounes.service.UserService;
+import com.lefredy.lestounes.service.impl.TracksServiceImpl;
 import com.lefredy.lestounes.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -23,9 +29,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @WebMvcTest(TracksController.class)
 @Import(WebConfiguration.class)
@@ -41,7 +47,6 @@ public class TracksControllerTests {
     TracksService tracksService;
     @MockitoBean
     UserService userService;
-
     @Test
     void getTracksFilter_returns200AndTheTracks() throws Exception {
         Tracks track = new Tracks();
@@ -85,5 +90,18 @@ public class TracksControllerTests {
         Path file = tempDir.resolve("song.mp3");
         Files.write(file, content);
         return new FileSystemResource(file);
+    }
+    @Test
+    void getTracksFilter_pageNbLimitTooBig_returns400() throws Exception {
+        mockMvc.perform(get("/api/v1/track")
+                        .param("genre", "jazz")
+                        .param("title", "Roach")
+                        .param("album", "Single")
+                        .param("artist", "Glad")
+                        .param("albumArtist", "Glad")
+                        .param("pageNbLimit", "5000"))
+                .andExpect(status().isBadRequest());
+
+        verify(tracksService, never()).getTracksFiltered(any());
     }
 }

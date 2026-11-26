@@ -6,12 +6,16 @@ import com.lefredy.lestounes.repository.TracksRepository;
 import com.lefredy.lestounes.schemas.Tracks;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.test.util.ReflectionTestUtils;
 
+import java.nio.file.Path;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,7 +36,8 @@ public class TracksServiceImplTests {
     private TracksServiceImpl tracksServiceImpl;
     @Mock
     private MongoTemplate mongoTemplate;
-
+    @TempDir
+    Path musicFolder;
     @Test
     void getTracksFiltered_returnsTheTracksFoundByMongo() {
 
@@ -64,5 +69,34 @@ public class TracksServiceImplTests {
         when(tracksRepository.findById(id)).thenReturn(Optional.empty());
 
         assertThrows(DocumentNotFoundException.class, () -> tracksServiceImpl.getTrackById(id));
+    }
+    @Test
+    void getTrackFileById_fileMissing_throws() {
+        UUID id = UUID.randomUUID();
+        Tracks track = new Tracks();
+        track.setPath("missing.mp3");
+        when(tracksRepository.findById(id)).thenReturn(Optional.of(track));
+        ReflectionTestUtils.setField(tracksServiceImpl, "musicRoot", musicFolder.toString());
+
+        assertThrows(DocumentNotFoundException.class, () -> tracksServiceImpl.getTrackFileById(id));
+    }
+    @Test
+    void getTracksFiltered_withEveryFilter_stillReturnsTheTracks() {
+        TracksFilterDto tracksFilterDto = new TracksFilterDto();
+        tracksFilterDto.setTitle("Roach");
+        tracksFilterDto.setArtist("Glad");
+        tracksFilterDto.setAlbum("Single");
+        tracksFilterDto.setAlbumArtist("Glad");
+        tracksFilterDto.setGenre("JAZZ");
+        tracksFilterDto.setUpdatedAt(new Date());
+        tracksFilterDto.setPage(1);
+        tracksFilterDto.setPageNbLimit(5);
+
+        when(mongoTemplate.find(any(Query.class), eq(Tracks.class))).thenReturn(List.of(new Tracks()));
+
+        List<Tracks> result = tracksServiceImpl.getTracksFiltered(tracksFilterDto);
+
+        assertEquals(1, result.size());
+        verify(mongoTemplate).find(any(Query.class), eq(Tracks.class));
     }
 }
