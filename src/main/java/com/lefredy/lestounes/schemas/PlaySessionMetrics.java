@@ -40,8 +40,8 @@ public class PlaySessionMetrics {
     }
 
     public PlaySessionMetrics(PlaySessionMetricDto dto, String trackTitle) {
-        this(dto.getTrackId(), trackTitle, dto.getUserId(), dto.getStartMs(), dto.getEndMs(),
-                dto.getStartAction(), dto.getStopAction(), new Date(dto.getTimeStamp()));
+        this(dto.trackId(), trackTitle, dto.userId(), dto.startMs(), dto.endMs(),
+                dto.startAction(), dto.stopAction(), new Date(dto.timeStamp()));
     }
 
     public UUID getId() {

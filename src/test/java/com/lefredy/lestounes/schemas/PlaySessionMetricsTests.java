@@ -54,21 +54,15 @@ class PlaySessionMetricsTests {
 
     @Test
     void dtoConstructor_copiesFieldsAndConvertsTimeStamp() {
-        PlaySessionMetricDto dto = new PlaySessionMetricDto();
-        dto.setTrackId(UUID.randomUUID());
-        dto.setUserId(UUID.randomUUID());
-        dto.setStartMs(1000L);
-        dto.setEndMs(5000L);
-        dto.setStartAction(MediaStartAction.FOLLOW);
-        dto.setStopAction(MediaStopAction.STOP);
-        dto.setTimeStamp(1764100000000L);
+        PlaySessionMetricDto dto = new PlaySessionMetricDto(UUID.randomUUID(), UUID.randomUUID(), 1000L, 5000L,
+                MediaStartAction.FOLLOW, MediaStopAction.STOP, 1764100000000L);
 
         PlaySessionMetrics metrics = new PlaySessionMetrics(dto, "Titre");
 
         assertNotNull(metrics.getId());
-        assertEquals(dto.getTrackId(), metrics.getTrackId());
+        assertEquals(dto.trackId(), metrics.getTrackId());
         assertEquals("Titre", metrics.getTrackTitle());
-        assertEquals(dto.getUserId(), metrics.getUserId());
+        assertEquals(dto.userId(), metrics.getUserId());
         assertEquals(1000L, metrics.getStartMs());
         assertEquals(5000L, metrics.getEndMs());
         assertEquals(MediaStartAction.FOLLOW, metrics.getStartAction());
