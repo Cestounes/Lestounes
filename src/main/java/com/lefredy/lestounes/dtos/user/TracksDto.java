@@ -69,46 +69,6 @@ public class TracksDto {
         this.title = title;
     }
 
-    public List<String> getArtists() {
-        return artists;
-    }
-
-    public void setArtists(List<String> artists) {
-        this.artists = artists;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
-    public String getAlbumArtist() {
-        return albumArtist;
-    }
-
-    public void setAlbumArtist(String albumArtist) {
-        this.albumArtist = albumArtist;
-    }
-
-    public String getComposer() {
-        return composer;
-    }
-
-    public void setComposer(String composer) {
-        this.composer = composer;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public List<String> getGenres() {
         return genres;
     }
