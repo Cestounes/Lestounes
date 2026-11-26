@@ -34,7 +34,7 @@ jobs:
       - name: Build and run tests
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: chmod +x ./mvnw && ./mvnw -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar　-Djava.version=${{ matrix.java }}
+        run: chmod +x ./mvnw && ./mvnw -B clean verify -Djava.version=${{ matrix.java }} org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
       - name: publish .jar as artifact
         if: matrix.java == '25'
         uses: actions/upload-artifact@v5
