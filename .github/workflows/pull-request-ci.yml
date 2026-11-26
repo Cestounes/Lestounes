@@ -19,15 +19,22 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Build and run tests
-        if: matrix.java == '21'
-        run: chmod +x ./mvnw && ./mvnw -B clean verify -Djava.version=${{ matrix.java }}
-      - name: Build and run sonarqube
-        if: matrix.java == '25'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: chmod +x ./mvnw && ./mvnw -B clean verify -Djava.version=${{ matrix.java }}  verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+        run: chmod +x ./mvnw && ./mvnw -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar　-Djava.version=${{ matrix.java }}
       - name: publish .jar as artifact
         if: matrix.java == '25'
         uses: actions/upload-artifact@v5
