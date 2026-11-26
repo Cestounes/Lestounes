@@ -1,7 +1,6 @@
 package com.lefredy.lestounes.schemas;
 
 import com.lefredy.lestounes.dtos.user.TracksDto;
-import com.lefredy.lestounes.dtos.user.TracksFilterDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -35,11 +34,16 @@ public class Tracks {
         this.path = tracksDto.getPath();
         this.title = tracksDto.getTitle();
         this.length = tracksDto.getLength();
-        setGenres(tracksDto.getGenres());
-        setTrackNumber(tracksDto.getTrackNumber());
-        setDiscNumber(tracksDto.getDiscNumber());
+        this.artists = tracksDto.getArtists();
+        this.album = tracksDto.getAlbum();
+        this.albumArtist = tracksDto.getAlbumArtist();
+        this.composer = tracksDto.getComposer();
+        this.date = tracksDto.getDate();
+        this.genres = tracksDto.getGenres();
+        this.trackNumber = tracksDto.getTrackNumber() == null ? 0 : tracksDto.getTrackNumber();
+        this.discNumber = tracksDto.getDiscNumber() == null ? 0 : tracksDto.getDiscNumber();
         this.comment = tracksDto.getComment();
-        this.updatedAt = tracksDto.getUpdatedAt();
+        this.updatedAt = new Date();
         this.deleted = false;
     }
 
@@ -86,6 +90,7 @@ public class Tracks {
     public void setArtists(List<String> artists) {
         this.artists = artists;
     }
+
     public String getAlbum() {
         return album;
     }
@@ -126,19 +131,19 @@ public class Tracks {
         this.genres = genres;
     }
 
-    public int getTrackNumber() {
+    public Integer getTrackNumber() {
         return trackNumber;
     }
 
-    public void setTrackNumber(int trackNumber) {
+    public void setTrackNumber(Integer trackNumber) {
         this.trackNumber = trackNumber;
     }
 
-    public int getDiscNumber() {
+    public Integer getDiscNumber() {
         return discNumber;
     }
 
-    public void setDiscNumber(int discNumber) {
+    public void setDiscNumber(Integer discNumber) {
         this.discNumber = discNumber;
     }
 

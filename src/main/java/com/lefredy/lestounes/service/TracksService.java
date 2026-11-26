@@ -1,6 +1,5 @@
 package com.lefredy.lestounes.service;
 
-import org.springframework.core.io.FileSystemResource;
 import com.lefredy.lestounes.dtos.user.TracksFilterDto;
 import com.lefredy.lestounes.schemas.Tracks;
 import org.springframework.core.io.Resource;

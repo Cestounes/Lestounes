@@ -27,7 +27,6 @@ public class TracksDto {
     @NotBlank
     String composer;
     @NotNull
-    @NotBlank
     Date date;
     @NotNull
     @NotBlank
@@ -40,10 +39,6 @@ public class TracksDto {
     Integer discNumber;
     @NotNull
     String comment;
-    @NotNull
-    Date updatedAt;
-    @NotNull
-    Boolean deleted;
 
     public String getPath() {
         return path;
@@ -51,6 +46,22 @@ public class TracksDto {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public List<String> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(List<String> artists) {
+        this.artists = artists;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Long getLength() {
@@ -61,12 +72,36 @@ public class TracksDto {
         this.length = length;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAlbum() {
+        return album;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
+    public String getAlbumArtist() {
+        return albumArtist;
+    }
+
+    public void setAlbumArtist(String albumArtist) {
+        this.albumArtist = albumArtist;
+    }
+
+    public String getComposer() {
+        return composer;
+    }
+
+    public void setComposer(String composer) {
+        this.composer = composer;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public List<String> getGenres() {
@@ -81,7 +116,7 @@ public class TracksDto {
         return trackNumber;
     }
 
-    public void setTrackNumber (Integer trackNumber) {
+    public void setTrackNumber(Integer trackNumber) {
         this.trackNumber = trackNumber;
     }
 
@@ -101,19 +136,4 @@ public class TracksDto {
         this.comment = comment;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

@@ -32,7 +32,7 @@ public class TracksServiceImpl implements TracksService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @Value("{MUSIC_ROOT:./music}")
+    @Value("${MUSIC_ROOT:./music}")
     private String musicRoot;
 
     @Override
@@ -40,7 +40,7 @@ public class TracksServiceImpl implements TracksService {
         Query query = new Query();
 
         addContainsFilter(query, "title", tracksFilterDto.getTitle());
-        addContainsFilter(query, "artist", tracksFilterDto.getArtist());
+        addContainsFilter(query, "artists", tracksFilterDto.getArtist());
         addContainsFilter(query, "album", tracksFilterDto.getAlbum());
         addContainsFilter(query, "albumArtist", tracksFilterDto.getAlbumArtist());
 
@@ -61,11 +61,11 @@ public class TracksServiceImpl implements TracksService {
             query.addCriteria(Criteria.where(field).regex(Pattern.quote(value),"i"));
         }
     }
-
+    @Override
     public Tracks getTrackById(UUID id) throws DocumentNotFoundException {
         return tracksRepository.findById(id).orElseThrow(DocumentNotFoundException::new);
     }
-
+    @Override
     public Resource getTrackFileById(UUID id) {
         Tracks track = getTrackById(id);
 

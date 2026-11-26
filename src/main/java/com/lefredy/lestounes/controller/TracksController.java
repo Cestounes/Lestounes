@@ -26,7 +26,7 @@ public class TracksController {
 
     static final MediaType Audio_MP = MediaType.parseMediaType("audio/mpeg");
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Tracks>> getTracksFilter(@Valid @ModelAttribute TracksFilterDto tracksFilterDto) {
         return ResponseEntity.ok(tracksService.getTracksFiltered(tracksFilterDto));
     }

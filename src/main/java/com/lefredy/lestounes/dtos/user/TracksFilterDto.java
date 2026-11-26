@@ -28,9 +28,9 @@ public class TracksFilterDto {
     @NotNull
     @NotBlank
     String albumArtist;
-    Integer page;
+    Integer page = 0;
     @Max(1000)
-    Integer pageNbLimit;
+    Integer pageNbLimit = 100;
     Date updatedAt;
 
     public String getGenre() {
