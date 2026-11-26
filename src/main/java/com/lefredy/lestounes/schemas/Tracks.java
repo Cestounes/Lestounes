@@ -35,11 +35,6 @@ public class Tracks {
         this.path = tracksDto.getPath();
         this.title = tracksDto.getTitle();
         this.length = tracksDto.getLength();
-        setArtists(tracksDto.getArtists());
-        this.album = tracksDto.getAlbum();
-        this.albumArtist = tracksDto.getAlbumArtist();
-        this.composer = tracksDto.getComposer();
-        this.date = tracksDto.getDate();
         setGenres(tracksDto.getGenres());
         setTrackNumber(tracksDto.getTrackNumber());
         setDiscNumber(tracksDto.getDiscNumber());
