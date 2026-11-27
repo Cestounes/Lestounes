@@ -5,6 +5,7 @@ import com.lefredy.lestounes.constants.MediaStopAction;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import java.util.Date;
 import java.util.UUID;
 
 public record PlaySessionMetricDto(
@@ -14,6 +15,6 @@ public record PlaySessionMetricDto(
         @NotNull @PositiveOrZero Long endMs,
         @NotNull MediaStartAction startAction,
         @NotNull MediaStopAction stopAction,
-        @NotNull @PositiveOrZero Long timeStamp
+        @NotNull Date timeStamp
 ) {
 }

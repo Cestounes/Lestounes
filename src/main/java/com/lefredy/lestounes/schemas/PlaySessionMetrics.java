@@ -41,7 +41,7 @@ public class PlaySessionMetrics {
 
     public PlaySessionMetrics(PlaySessionMetricDto dto, String trackTitle) {
         this(dto.trackId(), trackTitle, dto.userId(), dto.startMs(), dto.endMs(),
-                dto.startAction(), dto.stopAction(), new Date(dto.timeStamp()));
+                dto.startAction(), dto.stopAction(), dto.timeStamp());
     }
 
     public UUID getId() {

@@ -53,9 +53,10 @@ class PlaySessionMetricsTests {
     }
 
     @Test
-    void dtoConstructor_copiesFieldsAndConvertsTimeStamp() {
+    void dtoConstructor_copiesAllFields() {
+        Date timeStamp = new Date();
         PlaySessionMetricDto dto = new PlaySessionMetricDto(UUID.randomUUID(), UUID.randomUUID(), 1000L, 5000L,
-                MediaStartAction.FOLLOW, MediaStopAction.STOP, 1764100000000L);
+                MediaStartAction.FOLLOW, MediaStopAction.STOP, timeStamp);
 
         PlaySessionMetrics metrics = new PlaySessionMetrics(dto, "Titre");
 
@@ -67,6 +68,6 @@ class PlaySessionMetricsTests {
         assertEquals(5000L, metrics.getEndMs());
         assertEquals(MediaStartAction.FOLLOW, metrics.getStartAction());
         assertEquals(MediaStopAction.STOP, metrics.getStopAction());
-        assertEquals(new Date(1764100000000L), metrics.getTimeStamp());
+        assertEquals(timeStamp, metrics.getTimeStamp());
     }
 }
