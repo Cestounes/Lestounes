@@ -84,7 +84,7 @@ public class TracksServiceImplTests {
     void getTracksFiltered_withEveryFilter_stillReturnsTheTracks() {
         TracksFilterDto tracksFilterDto = new TracksFilterDto();
         tracksFilterDto.setTitle("Roach");
-        tracksFilterDto.setArtist("Glad");
+        tracksFilterDto.setArtists("Glad");
         tracksFilterDto.setAlbum("Single");
         tracksFilterDto.setAlbumArtist("Glad");
         tracksFilterDto.setGenre("JAZZ");

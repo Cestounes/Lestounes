@@ -57,7 +57,7 @@ public class TracksControllerTests {
                         .param("genre", "jazz")
                         .param("title", "Roach")
                         .param("album", "Single")
-                        .param("artist", "Glad")
+                        .param("artists", "Glad")
                         .param("albumArtist", "Glad")
                         .param("page", "0")
                         .param("pageNbLimit", "10"))
@@ -97,7 +97,7 @@ public class TracksControllerTests {
                         .param("genre", "jazz")
                         .param("title", "Roach")
                         .param("album", "Single")
-                        .param("artist", "Glad")
+                        .param("artists", "Glad")
                         .param("albumArtist", "Glad")
                         .param("pageNbLimit", "5000"))
                 .andExpect(status().isBadRequest());

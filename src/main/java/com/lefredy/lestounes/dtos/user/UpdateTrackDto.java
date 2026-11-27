@@ -17,8 +17,6 @@ public class UpdateTrackDto {
     @NotBlank
     Optional<String> comment = Optional.empty();
     @NotNull
-    @NotBlank
-    Optional<Date> updatedAt = Optional.empty();
     @NotNull
     @NotBlank
     Optional<Boolean> deleted = Optional.empty();
@@ -33,10 +31,6 @@ public class UpdateTrackDto {
 
     public void setComment(Optional<String> comment) {
         this.comment = comment;
-    }
-
-    public void setUpdatedAt(Optional<Date> updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public void setDeleted(Optional<Boolean> deleted) {

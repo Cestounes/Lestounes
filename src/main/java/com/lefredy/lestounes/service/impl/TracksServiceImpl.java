@@ -40,15 +40,12 @@ public class TracksServiceImpl implements TracksService {
         Query query = new Query();
 
         addContainsFilter(query, "title", tracksFilterDto.getTitle());
-        addContainsFilter(query, "artists", tracksFilterDto.getArtist());
+        addContainsFilter(query, "artists", tracksFilterDto.getArtists());
         addContainsFilter(query, "album", tracksFilterDto.getAlbum());
         addContainsFilter(query, "albumArtist", tracksFilterDto.getAlbumArtist());
 
         if (tracksFilterDto.getGenre() != null) {
             query.addCriteria(Criteria.where("genres").is(tracksFilterDto.getGenre().toLowerCase(Locale.ROOT)));
-        }
-        if (tracksFilterDto.getUpdatedAt() != null) {
-            query.addCriteria(Criteria.where("updatedAt").gt(tracksFilterDto.getUpdatedAt()));
         }
 
         query.with(PageRequest.of(tracksFilterDto.getPage(), tracksFilterDto.getPageNbLimit(), Sort.by("title")));

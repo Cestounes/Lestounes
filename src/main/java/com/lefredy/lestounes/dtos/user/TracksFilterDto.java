@@ -57,7 +57,7 @@ public class TracksFilterDto {
         this.album = album;
     }
 
-    public void setArtist(String artist) {
+    public void setArtists(String artists) {
         this.artists = artists;
     }
 
@@ -77,7 +77,7 @@ public class TracksFilterDto {
         this.updatedAt = updatedAt;
     }
 
-    public String getArtist() {
+    public String getArtists() {
         return artists;
     }
 
