@@ -1,21 +1,31 @@
 package com.lefredy.lestounes.controller;
 
+import com.lefredy.lestounes.dtos.user.PlaylistsDto;
+import com.lefredy.lestounes.schemas.Playlists;
+import com.lefredy.lestounes.service.PlaylistsService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/api/v{version}/playlist",version = "1")
+@RequestMapping(value = "/api/v{version}/library/playlist",version = "1")
 public class PlaylistsController {
 
-    @GetMapping("")
-    public void getPlaylist() {
+    @Autowired
+    private PlaylistsService playlistsService;
 
+    @GetMapping("")
+    public ResponseEntity<List<Playlists>> getPlaylist(@Valid @ModelAttribute PlaylistsDto playlistsDto) {
+        return ResponseEntity.ok(playlistsService.getPlaylist());
     }
 
     @GetMapping("/{id}")
-    public void getPlaylistById(@PathVariable UUID id){
-
+    public ResponseEntity<Playlists> getPlaylistById(@PathVariable UUID id){
+        return ResponseEntity.ok(playlistsService.getPlaylistsById(id));
     }
 
     @PostMapping("/user/post")

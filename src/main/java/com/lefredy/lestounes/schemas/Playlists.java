@@ -1,5 +1,6 @@
 package com.lefredy.lestounes.schemas;
 
+import com.lefredy.lestounes.dtos.user.PlaylistsDto;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,9 +18,18 @@ public class Playlists {
     private Date updatedAt;
     private Boolean deleted;
 
+    public Playlists(PlaylistsDto playlistsDto) {
+        this.id = UUID.randomUUID();
+        this.name = playlistsDto.getName();
+        this.tracks = playlistsDto.getTracks();
+        this.updatedAt = new Date();
+        this.deleted = false;
+    }
+
     public Playlists() {
 
     }
+
     public UUID getId() {
         return id;
     }
