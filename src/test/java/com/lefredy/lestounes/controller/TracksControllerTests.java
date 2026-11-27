@@ -53,7 +53,7 @@ public class TracksControllerTests {
         track.setTitle("Roach");
         when(tracksService.getTracksFiltered(any())).thenReturn(List.of(track));
 
-        mockMvc.perform(get("/api/v1/track")
+        mockMvc.perform(get("/api/v1/library/track")
                         .param("genre", "jazz")
                         .param("title", "Roach")
                         .param("album", "Single")
@@ -71,7 +71,7 @@ public class TracksControllerTests {
     void getOne_unknownId_returns404() throws Exception {
         when(tracksService.getTrackById(any())).thenThrow(new DocumentNotFoundException());
 
-        mockMvc.perform(get("/api/v1/track/" + UUID.randomUUID()))
+        mockMvc.perform(get("/api/v1/library/track/" + UUID.randomUUID()))
                 .andExpect(status().isNotFound());
     }
 
@@ -80,7 +80,7 @@ public class TracksControllerTests {
         byte[] fakeMp3 = {1, 2, 3};
         when(tracksService.getTrackFileById(any())).thenReturn(fakeFile(fakeMp3));
 
-        mockMvc.perform(get("/api/v1/track/file/" + UUID.randomUUID()))
+        mockMvc.perform(get("/api/v1/library/track/file/" + UUID.randomUUID()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("audio/mpeg"))
                 .andExpect(content().bytes(fakeMp3));
@@ -93,7 +93,7 @@ public class TracksControllerTests {
     }
     @Test
     void getTracksFilter_pageNbLimitTooBig_returns400() throws Exception {
-        mockMvc.perform(get("/api/v1/track")
+        mockMvc.perform(get("/api/v1/library/track")
                         .param("genre", "jazz")
                         .param("title", "Roach")
                         .param("album", "Single")
