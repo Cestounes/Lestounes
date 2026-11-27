@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/api/v{version}/track",version = "1")
+@RequestMapping(value = "/api/v{version}/library/track",version = "1")
 public class TracksController {
 
     @Autowired
