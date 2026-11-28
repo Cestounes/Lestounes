@@ -1,7 +1,7 @@
 package com.lefredy.lestounes.schemas;
 
-import com.lefredy.lestounes.constants.MediaStartAction;
-import com.lefredy.lestounes.constants.MediaStopAction;
+import com.lefredy.lestounes.constants.eMediaStartAction;
+import com.lefredy.lestounes.constants.eMediaStopAction;
 import com.lefredy.lestounes.dtos.playsession.PlaySessionMetricDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,8 +18,8 @@ public class PlaySessionMetrics {
     private UUID userId;
     private Long startMs;
     private Long endMs;
-    private MediaStartAction startAction;
-    private MediaStopAction stopAction;
+    private eMediaStartAction startAction;
+    private eMediaStopAction stopAction;
     private Date timeStamp;
 
     public PlaySessionMetrics() {
@@ -27,7 +27,7 @@ public class PlaySessionMetrics {
     }
 
     public PlaySessionMetrics(UUID trackId, String trackTitle, UUID userId, Long startMs, Long endMs,
-            MediaStartAction startAction, MediaStopAction stopAction, Date timeStamp) {
+            eMediaStartAction startAction, eMediaStopAction stopAction, Date timeStamp) {
         this.id = UUID.randomUUID();
         this.trackId = trackId;
         this.trackTitle = trackTitle;
@@ -39,8 +39,8 @@ public class PlaySessionMetrics {
         this.timeStamp = timeStamp;
     }
 
-    public PlaySessionMetrics(PlaySessionMetricDto dto, String trackTitle) {
-        this(dto.trackId(), trackTitle, dto.userId(), dto.startMs(), dto.endMs(),
+    public PlaySessionMetrics(PlaySessionMetricDto dto) {
+        this(dto.trackId(), dto.trackTitle(), dto.userId(), dto.startMs(), dto.endMs(),
                 dto.startAction(), dto.stopAction(), dto.timeStamp());
     }
 
@@ -92,19 +92,19 @@ public class PlaySessionMetrics {
         this.endMs = endMs;
     }
 
-    public MediaStartAction getStartAction() {
+    public eMediaStartAction getStartAction() {
         return startAction;
     }
 
-    public void setStartAction(MediaStartAction startAction) {
+    public void setStartAction(eMediaStartAction startAction) {
         this.startAction = startAction;
     }
 
-    public MediaStopAction getStopAction() {
+    public eMediaStopAction getStopAction() {
         return stopAction;
     }
 
-    public void setStopAction(MediaStopAction stopAction) {
+    public void setStopAction(eMediaStopAction stopAction) {
         this.stopAction = stopAction;
     }
 

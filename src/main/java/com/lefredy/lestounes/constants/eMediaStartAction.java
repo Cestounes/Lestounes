@@ -1,6 +1,6 @@
 package com.lefredy.lestounes.constants;
 
-public enum MediaStartAction {
+public enum eMediaStartAction {
     START,
     FOLLOW,
     SKIP,
