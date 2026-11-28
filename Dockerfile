@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jre-alpine AS run-only
+FROM eclipse-temurin:25-jre-ubi10-minimal AS run-only
 WORKDIR /app
 
 COPY target/*.jar app.jar
