@@ -28,6 +28,8 @@
     </scm>
     <properties>
         <java.version>21</java.version>
+        <argLine></argLine>
+        <sonar.cpd.exclusions>**/dtos/**</sonar.cpd.exclusions>
     </properties>
     <dependencies>
         <dependency>
@@ -127,6 +129,7 @@
                         <exclude>**/*WebConfiguration**</exclude>
                         <exclude>**/*PasswordConfiguration**</exclude>
                         <exclude>**/*SecurityConfig**</exclude>
+                        <exclude>**/dtos/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
