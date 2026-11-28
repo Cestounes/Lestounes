@@ -1,7 +1,7 @@
 package com.lefredy.lestounes.schemas;
 
-import com.lefredy.lestounes.constants.MediaStartAction;
-import com.lefredy.lestounes.constants.MediaStopAction;
+import com.lefredy.lestounes.constants.eMediaStartAction;
+import com.lefredy.lestounes.constants.eMediaStopAction;
 import com.lefredy.lestounes.dtos.playsession.PlaySessionMetricDto;
 
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ class PlaySessionMetricsTests {
         Date timeStamp = new Date();
 
         PlaySessionMetrics metrics = new PlaySessionMetrics(trackId, "Titre", userId, 1000L, 5000L,
-                MediaStartAction.START, MediaStopAction.END, timeStamp);
+                eMediaStartAction.START, eMediaStopAction.END, timeStamp);
 
         assertNotNull(metrics.getId());
         assertEquals(trackId, metrics.getTrackId());
@@ -28,17 +28,17 @@ class PlaySessionMetricsTests {
         assertEquals(userId, metrics.getUserId());
         assertEquals(1000L, metrics.getStartMs());
         assertEquals(5000L, metrics.getEndMs());
-        assertEquals(MediaStartAction.START, metrics.getStartAction());
-        assertEquals(MediaStopAction.END, metrics.getStopAction());
+        assertEquals(eMediaStartAction.START, metrics.getStartAction());
+        assertEquals(eMediaStopAction.END, metrics.getStopAction());
         assertEquals(timeStamp, metrics.getTimeStamp());
     }
 
     @Test
     void constructor_generatesDifferentIds() {
         PlaySessionMetrics first = new PlaySessionMetrics(UUID.randomUUID(), "A", UUID.randomUUID(), 0L, 1L,
-                MediaStartAction.SKIP, MediaStopAction.SKIP, new Date());
+                eMediaStartAction.SKIP, eMediaStopAction.SKIP, new Date());
         PlaySessionMetrics second = new PlaySessionMetrics(UUID.randomUUID(), "B", UUID.randomUUID(), 0L, 1L,
-                MediaStartAction.SKIP, MediaStopAction.SKIP, new Date());
+                eMediaStartAction.SKIP, eMediaStopAction.SKIP, new Date());
 
         assertNotEquals(first.getId(), second.getId());
     }
@@ -56,7 +56,7 @@ class PlaySessionMetricsTests {
     void dtoConstructor_copiesAllFields() {
         Date timeStamp = new Date();
         PlaySessionMetricDto dto = new PlaySessionMetricDto(UUID.randomUUID(), UUID.randomUUID(), 1000L, 5000L,
-                MediaStartAction.FOLLOW, MediaStopAction.STOP, timeStamp);
+                eMediaStartAction.FOLLOW, eMediaStopAction.STOP, timeStamp);
 
         PlaySessionMetrics metrics = new PlaySessionMetrics(dto, "Titre");
 
@@ -66,8 +66,8 @@ class PlaySessionMetricsTests {
         assertEquals(dto.userId(), metrics.getUserId());
         assertEquals(1000L, metrics.getStartMs());
         assertEquals(5000L, metrics.getEndMs());
-        assertEquals(MediaStartAction.FOLLOW, metrics.getStartAction());
-        assertEquals(MediaStopAction.STOP, metrics.getStopAction());
+        assertEquals(eMediaStartAction.FOLLOW, metrics.getStartAction());
+        assertEquals(eMediaStopAction.STOP, metrics.getStopAction());
         assertEquals(timeStamp, metrics.getTimeStamp());
     }
 }

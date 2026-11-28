@@ -1,6 +1,6 @@
 package com.lefredy.lestounes.constants;
 
-public enum MediaStopAction {
+public enum eMediaStopAction {
     STOP,
     END,
     SKIP,
